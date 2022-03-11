@@ -51,6 +51,6 @@ pipeline{
           kubernetesDeploy(configs: "./Kubernetes/mongo-statefullset.yaml", kubeconfigId: "kubernetes")
         }
       }
-        }
+        
     }
 }
