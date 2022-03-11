@@ -21,7 +21,7 @@ spec:
     spec: 
       containers:
         - name: devops
-          image: oussama24/backendapp:3.0
+          image: oussama24/backendapp:latest
           ports:
             - containerPort: 5000
           resources: {}  
