@@ -44,11 +44,12 @@ pipeline{
             }
         }
         stage("deploy"){
-            script {
-          kubernetesDeploy(configs: "./Kubernetes/backend-deployment.yml", kubeconfigId: "kubernetes")
-          kubernetesDeploy(configs: "./Kubernetes/mongo-statefullset.yaml", kubeconfigId: "kubernetes")  
-          kubernetesDeploy(configs: "./Kubernetes/ingress.yaml", kubeconfigId: "kubernetes")  
-          kubernetesDeploy(configs: "./Kubernetes/mongo-statefullset.yaml", kubeconfigId: "kubernetes")
+            steps{
+                    script {
+                    kubernetesDeploy(configs: "./Kubernetes/backend-deployment.yml", kubeconfigId: "kubernetes")
+                    kubernetesDeploy(configs: "./Kubernetes/mongo-statefullset.yaml", kubeconfigId: "kubernetes")  
+                    kubernetesDeploy(configs: "./Kubernetes/ingress.yaml", kubeconfigId: "kubernetes")  
+                    kubernetesDeploy(configs: "./Kubernetes/mongo-statefullset.yaml", kubeconfigId: "kubernetes")
         }
       }
         
