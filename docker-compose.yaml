@@ -1,0 +1,44 @@
+version: '3.3'
+services:
+  mongodb:
+    image: 'mongo'
+    volumes:
+      - data:/data/db
+
+    env_file:
+      - ./BackendApp/.env
+    container_name: appdb
+  backend:
+    build: 
+     context: ./BackendApp
+     dockerfile: Dockerfile
+    ports:
+      - '5000:5000'
+    volumes:
+      - logs:/app/logs
+      - ./server:/app
+      - /app/node_modules
+    env_file:
+      - ./BackendApp/server.env
+    depends_on:
+      - mongodb
+    container_name: backendapp
+
+  frontend:
+    build: 
+     context: ./FrontendApp
+     dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./FrontendApp/src:/app/src
+    depends_on:
+      - backend
+    stdin_open: true
+    tty: true
+    container_name: frontendapp
+
+# volumes:
+#                 - name: config-volume
+#                   configMap:
+#                     name: app-config

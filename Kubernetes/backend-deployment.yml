@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devops
+      tier: backend
+      track: stable
+  template:
+    metadata:
+      name: backend
+      labels:
+        app: devops
+        tier: backend
+        track: stable
+    spec: 
+      containers:
+        - name: devops
+          image: oussama24/backendapp:3.0
+          ports:
+            - containerPort: 5000
+          resources: {}  
+          env:
+            - name: USER_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: username
+            - name: USR_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: password
+            - name: MONGO_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-config
+                  key: mongo-url
+---
+apiVersion: v1
+kind: Service
+metadata: 
+   name: backend-service 
+   labels:
+     app: backend-service
+spec:
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+      nodePort: 30100
+  selector:
+    app: devops
+    tier: backend

@@ -1,0 +1,26 @@
+# we have to enable Ingress Module with command:
+#$ minikube addons enable ingress
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: haproxy
+  name: ingress-service
+  namespace: default
+spec:
+  # backend: 
+  #   serviceName: frontend-service
+  #   servicePort: 3000
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: "/api"
+        backend:
+          service:
+            name: backend-service
+            port:
+              number: 5000
+
+                     
