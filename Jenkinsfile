@@ -47,10 +47,10 @@ pipeline{
         stage("deploy"){
             steps{
                     script {
-                    kubernetesDeploy(configs: "./Kubernetes/backend-deployment.yml", kubeconfigId: "minikube")
-                    kubernetesDeploy(configs: "./Kubernetes/mongo-statefullset.yaml", kubeconfigId: "minikube")  
-                    kubernetesDeploy(configs: "./Kubernetes/ingress.yaml", kubeconfigId: "minikube")  
-                    kubernetesDeploy(configs: "./Kubernetes/mongo-statefullset.yaml", kubeconfigId: "minikube")
+                    kubernetesDeploy(configs: "Kubernetes/backend-deployment.yml", kubeconfigId: "minikube")
+                    kubernetesDeploy(configs: "Kubernetes/mongo-statefullset.yaml", kubeconfigId: "minikube")  
+                    kubernetesDeploy(configs: "Kubernetes/ingress.yaml", kubeconfigId: "minikube")  
+                    kubernetesDeploy(configs: "Kubernetes/mongo-statefullset.yaml", kubeconfigId: "minikube")
         }
             }
       }
